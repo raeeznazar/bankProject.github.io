@@ -39,9 +39,28 @@ export class LoginComponent implements OnInit {
   // }
 
   // login using template referencing
-  login(a: any, p: any) {
-    var acno = a.value;
-    var pswd = p.value;
+  // login(a: any, p: any) {
+  //   var acno = a.value;
+  //   var pswd = p.value;
+
+  //   let database = this.database;
+
+  //   if (acno in database) {
+  //     if (pswd == database[acno]['password']) {
+  //       alert('login sucessfully');
+  //     } else {
+  //       alert('invalid password');
+  //     }
+  //   } else {
+  //     alert('user does not exist');
+  //   }
+  // }
+
+  // login using ngModule (two way binding)
+
+  login() {
+    var acno = this.acno;
+    var pswd = this.pswd;
 
     let database = this.database;
 

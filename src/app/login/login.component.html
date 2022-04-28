@@ -22,9 +22,11 @@
 
             <!-- even binding using $event -  (change)="acnoChange($event)" -->
             <!-- template referencing variable - #acno -->
+            <!-- two way binding using ngModel -->
             <input
               type="text"
-              #acno
+              name="acno"
+              [(ngModel)]="acno"
               class="form-control"
               [placeholder]="placeHold"
               id="login_accno"
@@ -37,7 +39,8 @@
             </div>
             <input
               type="password"
-              #pswd
+              name="pswd"
+              [(ngModel)]="pswd"
               class="form-control"
               placeholder="password"
               id="login_password"
@@ -48,7 +51,7 @@
           <div class="form-group">
             <input
               type="submit"
-              (click)="login(acno,pswd)"
+              (click)="login()"
               value="Login"
               class="btn float-right login_btn"
               style="width: 50%"
