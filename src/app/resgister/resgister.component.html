@@ -1,9 +1,8 @@
-<!-- As a link -->
 <nav class="navbar navbar-light bg-dark">
   <a class="navbar-brand" href="#" style="color: rgb(85, 98, 237)"
     ><b>&#169; HAFC Bank Pvt.Ltd </b></a
   >
-  <span class="text-light">{{ aim }}</span>
+  <span class="text-light"></span>
   <span class="quote text-light">Giving you freedom... </span>
 </nav>
 
@@ -14,22 +13,34 @@
         <h3 class="text-center">Sign In</h3>
       </div>
       <div class="card-body">
-        <form (ngSubmit)="login()">
+        <form (ngSubmit)="register()">
           <div class="input-group form-group">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-user"></i></span>
             </div>
 
-            <!-- even binding using $event -  (change)="acnoChange($event)" -->
-            <!-- template referencing variable - #acno -->
-            <!-- two way binding using ngModel -->
             <input
               type="text"
-              name="acno"
+              name="uname"
+              [(ngModel)]="uname"
+              class="form-control"
+              placeholder="User name"
+              id="login_uname"
+              required
+            />
+          </div>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+
+            <input
+              type="text"
+              name="uname"
               [(ngModel)]="acno"
               class="form-control"
-              [placeholder]="placeHold"
-              id="login_accno"
+              placeholder="User account number"
+              id="register_acno"
               required
             />
           </div>
@@ -39,11 +50,11 @@
             </div>
             <input
               type="password"
-              name="pswd"
-              [(ngModel)]="pswd"
+              name="password"
+              [(ngModel)]="password"
               class="form-control"
               placeholder="password"
-              id="login_password"
+              id="register_password"
               required
             />
           </div>
@@ -51,7 +62,7 @@
           <div class="form-group">
             <input
               type="submit"
-              value="Login"
+              value="Submit"
               class="btn float-right login_btn"
               style="width: 50%"
             />
@@ -59,7 +70,7 @@
         </form>
       </div>
       <p style="color: white; align-items: baseline">
-        Not a user? <a routerLink="register">Register</a>
+        Not a user? <a routerLink="">already a user</a>
       </p>
     </div>
   </div>
