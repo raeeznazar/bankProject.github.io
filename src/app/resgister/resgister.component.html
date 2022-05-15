@@ -13,7 +13,7 @@
         <h3 class="text-center">Sign In</h3>
       </div>
       <div class="card-body">
-        <form (ngSubmit)="register()">
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
           <div class="input-group form-group">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -22,12 +22,21 @@
             <input
               type="text"
               name="uname"
-              [(ngModel)]="uname"
+              formControlName="uname"
               class="form-control"
               placeholder="User name"
               id="login_uname"
               required
             />
+          </div>
+          <div
+            *ngIf="
+              this.registerForm.get('uname')?.touched &&
+              this.registerForm.get('uname')?.errors
+            "
+            style="color: red"
+          >
+            Invalid username
           </div>
           <div class="input-group form-group">
             <div class="input-group-prepend">
@@ -37,7 +46,7 @@
             <input
               type="text"
               name="uname"
-              [(ngModel)]="acno"
+              formControlName="acno"
               class="form-control"
               placeholder="User account number"
               id="register_acno"
@@ -51,7 +60,7 @@
             <input
               type="password"
               name="password"
-              [(ngModel)]="password"
+              formControlName="password"
               class="form-control"
               placeholder="password"
               id="register_password"

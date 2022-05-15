@@ -1,1 +1,144 @@
-<p class="text-light">dash-board works!</p>
+
+<nav class="navbar navbar-light bg-dark">
+  <a class="navbar-brand" href="#" style="color: rgb(85, 98, 237)"
+    ><b>&#169; HAFC Bank Pvt.Ltd </b></a
+  >
+  <span class="text-light"></span>
+  <span class="quote text-light">Giving you freedom... </span>
+</nav>
+
+<div class="container col-md-12 mt-0">
+  <div class="d-flex justify-content-center h-100 mt-5">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="text-center">Deposit</h3>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="deposit()">
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+
+            <input
+              type="text"
+              name="acno1"
+              [(ngModel)]="acno1"
+              class="form-control"
+              placeholder="User account number"
+              id="deposit_acno1"
+              required
+            />
+          </div>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            <input
+              type="password"
+              name="password1"
+              [(ngModel)]="password1"
+              class="form-control"
+              placeholder="password"
+              id="register_password"
+              required
+            />
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+
+            <input
+              type="text"
+              name="amount1"
+              [(ngModel)]="amount1"
+              class="form-control"
+              placeholder="Amount"
+              id="deposit_amt1"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <input
+              type="submit"
+              value="Submit"
+              class="btn float-right login_btn"
+              style="width: 50%"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- --------------------- Widraw box ------------------------------->
+
+  <div class="d-flex justify-content-center h-100 mt-3">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="text-center">Widraw</h3>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="widraw()">
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+
+            <input
+              type="text"
+              name="acno2"
+              [(ngModel)]="acno2"
+              class="form-control"
+              placeholder="User account number"
+              id="deposit_acno2"
+              required
+            />
+          </div>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            <input
+              type="password"
+              name="password2"
+              [(ngModel)]="password2"
+              class="form-control"
+              placeholder="password"
+              id="register_password"
+              required
+            />
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+
+            <input
+              type="text"
+              name="amount2"
+              [(ngModel)]="amount2"
+              class="form-control"
+              placeholder="Amount"
+              id="deposit_amt1"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <input
+              type="submit"
+              value="Submit"
+              class="btn float-right login_btn"
+              style="width: 50%"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

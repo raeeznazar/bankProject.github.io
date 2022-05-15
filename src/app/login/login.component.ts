@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -13,7 +14,9 @@ export class LoginComponent implements OnInit {
   acno = '';
   pswd = '';
 
-  constructor(private router: Router, private db: DataService) {}
+  
+
+  constructor(private router: Router, private db: DataService, ) {}
 
   ngOnInit(): void {}
 
@@ -21,17 +24,10 @@ export class LoginComponent implements OnInit {
     var acno = this.acno;
     var pswd = this.pswd;
 
-    let database = this.db.database;
-
-    if (acno in database) {
-      if (pswd == database[acno]['password']) {
-        alert('login sucessfully');
-        this.router.navigateByUrl('dashboard');
-      } else {
-        alert('invalid password');
-      }
-    } else {
-      alert('user does not exist');
+    const result = this.db.login(acno, pswd);
+    if (result) {
+      alert('Login successfull');
+      this.router.navigateByUrl('dashboard');
     }
   }
 }
