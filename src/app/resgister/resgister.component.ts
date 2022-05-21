@@ -15,8 +15,8 @@ export class ResgisterComponent implements OnInit {
   // registerForm Model
   registerForm = this.fb.group({
     uname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
-    acno: [''],
-    password: [''],
+    acno: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+    password: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]],
   });
   constructor(
     private db: DataService,
@@ -27,12 +27,11 @@ export class ResgisterComponent implements OnInit {
   ngOnInit(): void {}
 
   register() {
-    if (this.registerForm.get('uname')?.errors) {
-      var uname = this.registerForm.value.uname;
-      var acno = this.registerForm.value.acno;
-      var password = this.registerForm.value.password;
-      const result = this.db.register(uname, acno, password);
-
+    var uname = this.registerForm.value.uname;
+    var acno = this.registerForm.value.acno;
+    var password = this.registerForm.value.password;
+    const result = this.db.register(uname, acno, password);
+    if (this.registerForm.valid) {
       if (result) {
         alert('sucessfully registered');
         this.router.navigateByUrl('');
