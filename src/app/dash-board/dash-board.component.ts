@@ -1,5 +1,7 @@
+import { BuiltinTypeName } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -28,11 +30,24 @@ export class DashBoardComponent implements OnInit {
     amount2: ['', [Validators.required, Validators.pattern('[0-9]*')]],
   });
 
-  constructor(private ds: DataService, private fb: FormBuilder) {
+  loginDate: any;
+  delAcno: any;
+
+  constructor(
+    private ds: DataService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {
     this.user = this.ds.currentuser;
+    this.loginDate = new Date();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (!localStorage.getItem('currentAcno')) {
+      alert('Please login');
+      this.router.navigateByUrl('');
+    }
+  }
 
   // calling funtion for deposit
   deposit() {
@@ -59,5 +74,25 @@ export class DashBoardComponent implements OnInit {
         alert('Amount suucessfully debitted and new balance is' + result);
       }
     }
+  }
+
+  // Log Out
+  logout() {
+    localStorage.removeItem('currentuser');
+    localStorage.removeItem('currentAcno');
+    this.router.navigateByUrl('');
+  }
+
+  // delete from parent for deletebtn
+
+  deleteFromParent() {
+    this.delAcno = JSON.parse(localStorage.getItem('currentAcno') || '');
+  }
+
+  onDashCancel() {
+    this.delAcno = '';
+  }
+  onDashDelete(event: any) {
+    alert('Delete the account numner ' + event);
   }
 }

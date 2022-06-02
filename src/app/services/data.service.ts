@@ -119,7 +119,6 @@ export class DataService {
         });
         // console.log(database);
         this.saveDetails();
-
         return database[acnoDepo]['balance'];
       } else {
         alert('invalid password');
@@ -131,7 +130,7 @@ export class DataService {
     }
   }
 
-  // Deposit
+  // widraw
 
   widraw(acnoWidraw: any, password: any, amt: any) {
     var amount = parseInt(amt);
@@ -169,8 +168,4 @@ export class DataService {
   }
 
   // logout
-
-  logout(){
-    
-  }
 }

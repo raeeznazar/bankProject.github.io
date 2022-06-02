@@ -13,6 +13,7 @@ const routes: Routes = [
   //register path
   { path: 'register', component: ResgisterComponent },
   { path: 'transaction', component: TransactionComponent },
+  
 ];
 
 @NgModule({

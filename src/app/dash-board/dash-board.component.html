@@ -5,14 +5,24 @@
   <span class="quote text-light">Welcome {{ user }}</span>
 
   <span class="quote text-light">Giving you freedom... </span>
-  <button class="btn-danger" click() ="logout()">log out</button>
+  <button class="btn-warning" (click)="logout()">log out</button>
 </nav>
 <a routerLink="/transaction">transaction history</a>
-<div class="container col-md-12 mt-0">
+<h4 class="text-light">Login details : {{ loginDate | date: "fullDate" }}</h4>
+<!-- <app-animation-demo></app-animation-demo> -->
+<button (click)="deleteFromParent()" class="btn btn-danger float-right">
+  Delete
+</button>
+<app-delete-btn
+  (onDelete)="onDashDelete($event)"
+  (onCancel)="onDashCancel()"
+  [item]="delAcno"
+></app-delete-btn>
+<div [ngClass]="delAcno ? 'style1' : ''" class="container col-md-12 mt-0">
   <div class="d-flex justify-content-center h-100 mt-5">
     <div class="card">
       <div class="card-header">
-        <h3 class="text-center">Deposit</h3>
+        <h3 appHighlighters class="text-center">Deposit</h3>
       </div>
       <div class="card-body">
         <form [formGroup]="depositForm" (ngSubmit)="deposit()">
@@ -108,7 +118,7 @@
   <div class="d-flex justify-content-center h-100 mt-3">
     <div class="card">
       <div class="card-header">
-        <h3 class="text-center">Widraw</h3>
+        <h3 appHighlighters class="text-center">Widraw</h3>
       </div>
       <div class="card-body">
         <form [formGroup]="widrawForm" (ngSubmit)="widraw()">
