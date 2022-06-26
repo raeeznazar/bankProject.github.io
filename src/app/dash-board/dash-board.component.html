@@ -10,7 +10,11 @@
 <a routerLink="/transaction">transaction history</a>
 <h4 class="text-light">Login details : {{ loginDate | date: "fullDate" }}</h4>
 <!-- <app-animation-demo></app-animation-demo> -->
-<button (click)="deleteFromParent()" class="btn btn-danger float-right">
+<button
+  (click)="deleteFromParent()"
+  [ngClass]="delAcno ? 'style1' : ''"
+  class="btn btn-danger float-right"
+>
   Delete
 </button>
 <app-delete-btn

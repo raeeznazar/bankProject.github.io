@@ -19,7 +19,7 @@ export class ResgisterComponent implements OnInit {
     password: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]],
   });
   constructor(
-    private db: DataService,
+    private ds: DataService,
     private router: Router,
     private fb: FormBuilder
   ) {}
@@ -30,14 +30,21 @@ export class ResgisterComponent implements OnInit {
     var uname = this.registerForm.value.uname;
     var acno = this.registerForm.value.acno;
     var password = this.registerForm.value.password;
-    const result = this.db.register(uname, acno, password);
+
     if (this.registerForm.valid) {
-      if (result) {
-        alert('sucessfully registered');
-        this.router.navigateByUrl('');
-      } else {
-        alert('Account already exist, please login');
-      }
+      //asynchronous
+      this.ds.register(uname, acno, password)
+      .subscribe(
+        (result: any) => {
+          if (result) {
+            alert(result.message);
+            this.router.navigateByUrl('');
+          }
+        },
+        (result) => {
+          alert(result.error.message);
+        }
+      );
     } else {
       alert('Invalid form');
     }

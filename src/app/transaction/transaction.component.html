@@ -9,13 +9,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let t of transaction">
+      <tr *ngFor="let t of transactions">
         <td>{{ t.type }}</td>
         <td>{{ t.amount }}</td>
       </tr>
       <tr>
-        <td>BALANCE</td>
-        <td>{{ balance }}</td>
+        <td class="text-warning">BALANCE</td>
+        <td class="text-warning">{{ balance }}</td>
       </tr>
     </tbody>
   </table>

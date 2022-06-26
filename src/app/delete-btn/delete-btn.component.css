@@ -1,5 +1,8 @@
 .external {
   text-align: center;
-  margin-left: 600px;
-  margin-right: 600px;
+  padding: 20px;
+  margin-right: 200px;
+  margin-left: 200px;
+  margin-top: 100px;
+  border: 1px solid white;
 }

@@ -8,17 +8,29 @@ import { DataService } from '../services/data.service';
 })
 export class TransactionComponent implements OnInit {
   user: any;
-  transaction: any;
+  transactions: any;
   acno: any;
   balance: any;
   constructor(private ds: DataService) {
     //// for user appear in transaction page
-    this.user = this.ds.currentuser;
-/// for transaction details
-    this.acno = this.ds.currentAcno;
-    this.transaction = this.ds.transaction(this.acno);
-    console.log(this.transaction);
-    this.balance = this.ds.getBalance(this.acno);
+    this.user = JSON.parse(localStorage.getItem('currentuser') || '');
+    /// for transaction details
+    this.acno = JSON.parse(localStorage.getItem('currentAcno') || '');
+    // this.transaction =
+    this.ds.transaction(this.acno).subscribe(
+      (result: any) => {
+        if (result) {
+          this.transactions = result.transaction;
+          this.balance = result.balance;
+        }
+      },
+      (result) => {
+        alert(result.error.message);
+      }
+    );
+
+    // // console.log(this.transaction);
+    // this.balance = this.ds.getBalance(this.acno);
   }
 
   ngOnInit(): void {}

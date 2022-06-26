@@ -11,6 +11,7 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { DeleteBtnComponent } from './delete-btn/delete-btn.component';
 import { HighlightersDirective } from './directives/highlighters.directive';
 import { AnimationDemoComponent } from './animation-demo/animation-demo.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AnimationDemoComponent } from './animation-demo/animation-demo.componen
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

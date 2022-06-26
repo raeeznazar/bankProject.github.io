@@ -1,6 +1,10 @@
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, ɵresetJitOptions } from '@angular/core';
 import { debounceTime } from 'rxjs';
 
+const options = {
+  headers: new HttpHeaders(),
+};
 @Injectable({
   providedIn: 'root',
 })
@@ -32,7 +36,7 @@ export class DataService {
       transaction: [],
     },
   };
-  constructor() {
+  constructor(private http: HttpClient) {
     this.getDetails();
   }
 
@@ -66,106 +70,130 @@ export class DataService {
   }
   // register(uname:any,acno:any,password:any)
   register(uname: any, acno: any, password: any) {
-    let database = this.database;
-    // already exist acno
-    if (acno in database) {
-      return false;
-    } else {
-      // add details to db
-      database[acno] = {
-        acno,
-        uname,
-        password,
-        balance: 0,
-        transaction: [],
-      };
-      this.saveDetails();
-
-      return true;
-    }
+    //req body
+    const data = {
+      uname,
+      acno,
+      password,
+    };
+    //register API call
+    return this.http.post('http://localhost:3000/register', data);
   }
   // login
   login(acno: any, pswd: any) {
-    let database = this.database;
-    // already in database
-    if (acno in database) {
-      if (pswd == database[acno]['password']) {
-        this.currentuser = database[acno]['uname'];
-        this.currentAcno = acno;
-        this.saveDetails();
-        return true;
-      } else {
-        alert('Incorrect password');
-        return false;
-      }
-    } else {
-      alert('user does not exist');
-      return false;
-    }
+    // req body
+    const data = {
+      acno,
+      pswd,
+    };
+
+    //login API call
+    return this.http.post('http://localhost:3000/login', data);
   }
 
   // Deposit
 
   deposit(acnoDepo: any, password: any, amt: any) {
-    var amount = parseInt(amt);
-    let database = this.database;
+    // req body
+    const data = {
+      amt,
+      acnoDepo,
+      password,
+    };
 
-    if (acnoDepo in database) {
-      if (password == database[acnoDepo]['password']) {
-        database[acnoDepo]['balance'] += amount;
-        database[acnoDepo]['transaction'].push({
-          type: 'CREDIT',
-          amount: amount,
-        });
-        // console.log(database);
-        this.saveDetails();
-        return database[acnoDepo]['balance'];
-      } else {
-        alert('invalid password');
-        return false;
-      }
-    } else {
-      alert('Account number does not exist');
-      return false;
+    //login API call
+    return this.http.post(
+      'http://localhost:3000/deposit',
+      data,
+      this.getOptions()
+    );
+  }
+
+  //add token to req header
+
+  getOptions() {
+    // To fetch token
+    const token = JSON.parse(localStorage.getItem('token') || '');
+
+    //create http header
+    let headers = new HttpHeaders();
+
+    if (token) {
+      headers = headers.append('x-access-token', token);
+      options.headers = headers;
     }
+    return options;
   }
 
   // widraw
 
   widraw(acnoWidraw: any, password: any, amt: any) {
-    var amount = parseInt(amt);
-    let database = this.database;
+    //req body
+    const data = {
+      amt,
+      acnoWidraw,
+      password,
+    };
 
-    if (acnoWidraw in database) {
-      if (password == database[acnoWidraw]['password']) {
-        if (database[acnoWidraw]['balance'] >= amount) {
-          database[acnoWidraw]['balance'] -= amount;
-          database[acnoWidraw]['transaction'].push({
-            type: 'DEBIT',
-            amount: amount,
-          });
-          this.saveDetails();
+    // widraw API
+    return this.http.post(
+      'http://localhost:3000/widraw',
+      data,
+      this.getOptions()
+    );
 
-          return database[acnoWidraw]['balance'];
-        } else {
-          alert('insufficient balance');
-          return false;
-        }
-      } else {
-        alert('invalid password');
-        return false;
-      }
-    } else {
-      alert('Account number does not exist');
-      return false;
-    }
+    // var amount = parseInt(amt);
+    // let database = this.database;
+
+    // if (acnoWidraw in database) {
+    //   if (password == database[acnoWidraw]['password']) {
+    //     if (database[acnoWidraw]['balance'] >= amount) {
+    //       database[acnoWidraw]['balance'] -= amount;
+    //       database[acnoWidraw]['transaction'].push({
+    //         type: 'DEBIT',
+    //         amount: amount,
+    //       });
+    //       this.saveDetails();
+
+    //       return database[acnoWidraw]['balance'];
+    //     } else {
+    //       alert('insufficient balance');
+    //       return false;
+    //     }
+    //   } else {
+    //     alert('invalid password');
+    //     return false;
+    //   }
+    // } else {
+    //   alert('Account number does not exist');
+    //   return false;
+    // }
   }
 
   //transaction
 
   transaction(acno: any) {
-    return this.database[acno].transaction;
+    const data = {
+      acno
+    };
+      // transaction API
+    return this.http.post(
+      'http://localhost:3000/transaction',
+      data,
+      this.getOptions()
+    );
+
+    // return this.database[acno].transaction;
   }
 
   // logout
+
+
+  onDashDelete(acno:any){
+    return this.http.delete(
+      'http://localhost:3000/onDashDelete/'+acno,
+      this.getOptions()
+    );
+  }
 }
+

@@ -29,13 +29,30 @@ export class LoginComponent implements OnInit {
     var acno = this.loginForm.value.acno;
     var pswd = this.loginForm.value.pswd;
     if (this.loginForm.valid) {
-      const result = this.db.login(acno, pswd);
-      if (result) {
-        alert('Login successfull');
-        this.router.navigateByUrl('dashboard');
-      } else {
-        alert('invalid form');
-      }
+      this.db
+        .login(acno, pswd)
+
+        .subscribe(
+          (result: any) => {
+            if (result) {
+              localStorage.setItem(
+                'currentAcno',
+                JSON.stringify(result.currentAcno)
+              );
+              localStorage.setItem(
+                'currentuser',
+                JSON.stringify(result.currentuser)
+              );
+
+              localStorage.setItem('token', JSON.stringify(result.token));
+              alert(result.message);
+              this.router.navigateByUrl('dashboard');
+            }
+          },
+          (result) => {
+            alert(result.error.message);
+          }
+        );
     }
   }
 }

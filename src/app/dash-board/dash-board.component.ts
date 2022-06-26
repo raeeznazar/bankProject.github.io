@@ -38,15 +38,16 @@ export class DashBoardComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router
   ) {
-    this.user = this.ds.currentuser;
+    // this.user = this.ds.currentuser;
+    this.user = JSON.parse(localStorage.getItem('currentuser') || '');
     this.loginDate = new Date();
   }
 
   ngOnInit(): void {
-    if (!localStorage.getItem('currentAcno')) {
-      alert('Please login');
-      this.router.navigateByUrl('');
-    }
+    // if (!localStorage.getItem('currentAcno')) {
+    //   alert('Please login');
+    //   this.router.navigateByUrl('');
+    // }
   }
 
   // calling funtion for deposit
@@ -55,11 +56,16 @@ export class DashBoardComponent implements OnInit {
     var password1 = this.depositForm.value.password1;
     var amount1 = this.depositForm.value.amount1;
     if (this.depositForm.valid) {
-      const result = this.ds.deposit(acno1, password1, amount1);
-
-      if (result) {
-        alert('Amount suucessfully deposited and new balance is' + result);
-      }
+      this.ds.deposit(acno1, password1, amount1).subscribe(
+        (result: any) => {
+          if (result) {
+            alert(result.message);
+          }
+        },
+        (result) => {
+          alert(result.error.message);
+        }
+      );
     }
   }
 
@@ -68,11 +74,19 @@ export class DashBoardComponent implements OnInit {
     var password2 = this.widrawForm.value.password2;
     var amount2 = this.widrawForm.value.amount2;
     if (this.widrawForm.valid) {
-      const result = this.ds.widraw(acno2, password2, amount2);
+      this.ds
+        .widraw(acno2, password2, amount2)
 
-      if (result) {
-        alert('Amount suucessfully debitted and new balance is' + result);
-      }
+        .subscribe(
+          (result: any) => {
+            if (result) {
+              alert(result.message);
+            }
+          },
+          (result) => {
+            alert(result.error.message);
+          }
+        );
     }
   }
 
@@ -93,6 +107,20 @@ export class DashBoardComponent implements OnInit {
     this.delAcno = '';
   }
   onDashDelete(event: any) {
-    alert('Delete the account numner ' + event);
+    // alert('Delete the account numner ' + event);
+    // calling onDashDelete in DataService
+    this.ds.onDashDelete(event)
+    .subscribe((result: any) => {
+        if (result) {
+          alert(result.message);
+          this.router.navigateByUrl("")
+        }
+      },
+      (result:any) => {
+        alert(result.error.message);
+      }
+    );
+
+    
   }
 }
