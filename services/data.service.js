@@ -232,7 +232,7 @@ const widraw = (req, acnoWidraw, password, amt) => {
       return {
         statuscode: 401,
         status: false,
-        message: "access denied!!",
+        message: "access denied!!"
       };
     }
 

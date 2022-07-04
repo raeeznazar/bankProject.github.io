@@ -117,12 +117,11 @@ app.post("/transaction", jwtMiddleWare, (req, res) => {
 });
 
 // onDashDelete API
-app.delete("/onDashDelete/:acno",jwtMiddleWare,(req,res)=>{
-  dataService.onDashDelete(req.params.acno)
-  .then((result) => {
+app.delete("/onDashDelete/:acno", jwtMiddleWare, (req, res) => {
+  dataService.onDashDelete(req.params.acno).then((result) => {
     res.status(result.statuscode).json(result);
   });
-})
+});
 // set port number
 app.listen(3000, () => {
   console.log("server started at 3000");
